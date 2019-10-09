@@ -5,11 +5,18 @@
 // @description  try to take over the world!
 // @author       You
 // @run-at       document-end
-// @require      https://code.jquery.com/jquery-3.2.1.min.js
+// @resource	 customCSS 
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @require		 https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js
 // @match        http://sokker.org/player/PID/*
-// @grant        none
+// @grant       GM_addStyle
 // ==/UserScript==
 
+$('head').append (
+    '<link '
+  + 'href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" '
+  + 'rel="stylesheet" type="text/css">'
+);
 
 (function() {
 
@@ -57,6 +64,7 @@
 		$content.append(buttonGroup);
 
 		const $buttonGroup = $content.find('.buttonGroup');
+		$buttonGroup.append('<a class="loginButton" data-toggle="modal" data-target="#myModal">Configure Mail</a>');
 		var buttonRO = "<a href='" + link + "RO' class='mailButton'>RO MAIL</a>";
 		var buttonEN = "<a href='" + link + "EN' class='mailButton'>EN MAIL</a>";
 		$buttonGroup.append(buttonRO, buttonEN);
@@ -109,6 +117,7 @@
 
         const $buttonGroup = $container.find('.buttonGroup');
 		var buttonLogin = "<a href='" + API_LOGIN + "' target='_blank' class='loginButton'>Please login</a>";
+		$buttonGroup.append('<a class="loginButton" data-toggle="modal" data-target="#myModal">Configure Mail</a>');
 		$buttonGroup.append(buttonLogin);
     }
 
@@ -120,7 +129,42 @@
         } else {
             login();
         }
+		addModal();
 	};
 
 	main();
 })();
+
+function addModal() {
+	$('body').append(`
+		
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title">Configure Mail</h4>
+				</div>
+				<div class="modal-body">
+				  <div class="form-group">
+					  <label for="exampleFormControlTextarea2">RO version</label>
+					  <textarea class="form-control rounded-0" id="textRo" rows="3"></textarea>
+				  </div>
+				   <div class="form-group">
+					  <label for="exampleFormControlTextarea2">EN version</label>
+					  <textarea class="form-control rounded-0" id="textEN" rows="3"></textarea>
+				  </div>
+				  <p>You can use <i>[player]</i> statement in your message. This will be replaced by the player name.</p>
+				</div>
+				<div class="modal-footer" style="text-align:center">
+				  <button type="button" class="btn btn-primary btn-md" style="width:20%">Save</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+	
+	`);
+}
