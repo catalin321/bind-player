@@ -20,10 +20,9 @@
     const API_LOGIN = 'http://sokker.org/xmlinfo.php';
 
 	function applyCss() {
-		let css = ".mailButton { margin: 10px; background-color: #f44336; color: white; padding: 10px 22px; display: inline-block; font-size: 12px; cursor: pointer}";
-		css+= ".mailButton:last-child { background-color: #008CBA; }";
-		css += ".buttonGroup { text-align: right; }";
-        css += ".loginButton { padding: 10px 22px; font-size: 12px; text-decoration: underline; }";
+		let css = ".mailButton { color: white; padding: 10px 22px; display: inline-block; font-size: 12px; cursor: pointer; text-decoration: underline;}";
+		css += ".buttonGroup { text-align: right; height:35px; font-weight: bold; background: linear-gradient(to bottom,#5d9634,#5d9634 50%,#538c2b 50%,#538c2b); }";
+        css += ".loginButton { padding: 10px 22px; font-size: 12px; display: inline-block; text-decoration: underline; color: #FFFFF0 }";
 
 		let style = document.createElement("style");
 		style.type = "text/css";
@@ -32,7 +31,11 @@
 	}
 
 	function getPlayer() {
-		return $('.topContent > h1').text();
+         if (isOldDesign()) {
+             return $('.topContent > h1').text();
+         } else {
+		    return $('.navbar-brand').text();
+        }
 	}
 
 	function createMailButtons(xml) {
@@ -49,13 +52,13 @@
 
 		let query = "?owner=" + owner + "&player=" + getPlayer() + "&lang=";
         const link = MAIL_LINK + query;
-        const $content = $('.mainContainer .content').first();
+        const $content = getContainer();
 		const buttonGroup = "<div class='buttonGroup'></div>";
 		$content.append(buttonGroup);
 
 		const $buttonGroup = $content.find('.buttonGroup');
-		var buttonRO = "<a href='" + link + "RO' class='mailButton'>RO</a>";
-		var buttonEN = "<a href='" + link + "EN' class='mailButton'>EN</a>";
+		var buttonRO = "<a href='" + link + "RO' class='mailButton'>RO MAIL</a>";
+		var buttonEN = "<a href='" + link + "EN' class='mailButton'>EN MAIL</a>";
 		$buttonGroup.append(buttonRO, buttonEN);
 
 		return false;
@@ -86,12 +89,25 @@
 		});
 	}
 
-    function login() {
-        const $content = $('.mainContainer .content').first();
-		const buttonGroup = "<div class='buttonGroup'></div>";
-        $content.append(buttonGroup);
+    function isOldDesign() {
+        return $('#centerBox').length > 0;
+    }
 
-        const $buttonGroup = $content.find('.buttonGroup');
+    function getContainer() {
+        if (isOldDesign()) {
+            return $('.mainContainer .content').first();
+        } else {
+            return $('.panel-body .media').first();
+        }
+    }
+
+    function login() {
+
+        const $container = getContainer();
+		const buttonGroup = "<div class='buttonGroup'></div>";
+        $container.append(buttonGroup);
+
+        const $buttonGroup = $container.find('.buttonGroup');
 		var buttonLogin = "<a href='" + API_LOGIN + "' target='_blank' class='loginButton'>Please login</a>";
 		$buttonGroup.append(buttonLogin);
     }
