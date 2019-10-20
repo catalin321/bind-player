@@ -94,6 +94,7 @@ $('head').append (
         .then(data => createMailButtons(data))
         .catch(err => {
 			console.log(err);
+			login();
 		});
 	}
 
