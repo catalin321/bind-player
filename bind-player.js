@@ -42,7 +42,7 @@ $('head').append (
              return $('.topContent > h1').text();
          } else {
 		    return $('.navbar-brand').text();
-        }
+        } 
 	}
 
 	function createMailButtons(xml) {
