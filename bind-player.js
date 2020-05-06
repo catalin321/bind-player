@@ -8,7 +8,7 @@
 // @resource	 customCSS 
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @require		 https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js
-// @match        http://sokker.org/player/PID/*
+// @match        https://sokker.org/player/PID/*
 // @grant       GM_addStyle
 // ==/UserScript==
 
