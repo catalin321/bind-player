@@ -23,8 +23,8 @@ $('head').append (
     'use strict';
 
 	const MAIL_LINK = 'mailbox/#show/none/newmail/';
-    const API_URL = 'http://sokker.org/xml/';
-    const API_LOGIN = 'http://sokker.org/xmlinfo.php';
+    const API_URL = 'https://sokker.org/xml/';
+    const API_LOGIN = 'https://sokker.org/xmlinfo.php';
 
 	function applyCss() {
 		let css = ".mailButton { color: white; padding: 10px 22px; display: inline-block; font-size: 12px; cursor: pointer; text-decoration: underline;}";
